@@ -1,4 +1,4 @@
-# 🍽️ GourmetGo — Full-Stack Food Ordering Platform
+#  GourmetGo — Full-Stack Food Ordering Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React 19" />
@@ -13,7 +13,7 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Features](#-features)
 - [Architecture](#-architecture)
@@ -30,30 +30,30 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 
 ---
 
-## ✨ Features
+##  Features
 
 ### Customer Features
-- 🛒 **Smart Cart Management** — Add/remove items, quantity controls, persistent across sessions
-- 🔍 **Intelligent Search** — Real-time case-insensitive filtering with ML-powered recommendations
-- 📂 **Category Browsing** — Filter by Fast Food, BBQ, Desi, Special Dishes, Drinks, Ice Cream, Salad
-- 📦 **Order Tracking** — Real-time status updates (Pending → Preparing → Out for Delivery → Delivered)
-- ❤️ **Wishlist** — Save favorite dishes for later with MongoDB persistence
-- ⭐ **Reviews & Ratings** — 1-5 star rating system with validated submissions
-- 🤖 **AI Recommendations** — Content-based + popularity hybrid scoring (75/25 split)
-- 🔥 **Trending Foods** — ML-powered popularity engine on homepage
-- 📱 **Responsive Design** — Optimized for desktop, tablet, and mobile
+-  **Smart Cart Management** — Add/remove items, quantity controls, persistent across sessions
+-  **Intelligent Search** — Real-time case-insensitive filtering with ML-powered recommendations
+-  **Category Browsing** — Filter by Fast Food, BBQ, Desi, Special Dishes, Drinks, Ice Cream, Salad
+-  **Order Tracking** — Real-time status updates (Pending → Preparing → Out for Delivery → Delivered)
+-  **Wishlist** — Save favorite dishes for later with MongoDB persistence
+-  **Reviews & Ratings** — 1-5 star rating system with validated submissions
+-  **AI Recommendations** — Content-based + popularity hybrid scoring (75/25 split)
+-  **Trending Foods** — ML-powered popularity engine on homepage
+-  **Responsive Design** — Optimized for desktop, tablet, and mobile
 
 ### Admin Features
-- 📊 **Dashboard** — Centralized management with tabbed interface
-- 🍕 **Product CRUD** — Full catalog management with validation
-- 📋 **Order Management** — Status workflow with visual badges
-- 💬 **Message Center** — Customer inquiries with timestamps
-- 📈 **ML Demand Forecasting** — RandomForest predictions based on weather, temperature, weekend, occasions
-- ⚠️ **Stock Alerts** — Automatic high-demand warnings (threshold: 35+ expected sales)
+-  **Dashboard** — Centralized management with tabbed interface
+-  **Product CRUD** — Full catalog management with validation
+-  **Order Management** — Status workflow with visual badges
+-  **Message Center** — Customer inquiries with timestamps
+-  **ML Demand Forecasting** — RandomForest predictions based on weather, temperature, weekend, occasions
+-  **Stock Alerts** — Automatic high-demand warnings (threshold: 35+ expected sales)
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -83,7 +83,7 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 
 ---
 
-## 🤖 ML Models & Automation
+##  ML Models & Automation
 
 ### 1. Content-Based Food Recommender
 
@@ -127,9 +127,9 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 **Demand Classification:**
 | Expected Sales | Level | Action |
 |---------------|-------|--------|
-| ≥ 35 | 🔴 High Demand | Prepare 50% additional stock |
-| 20–34 | 🟡 Moderate Demand | Maintain current stock levels |
-| < 20 | 🟢 Low Demand | Consider reducing preparation |
+| ≥ 35 |  High Demand | Prepare 50% additional stock |
+| 20–34 |  Moderate Demand | Maintain current stock levels |
+| < 20 |  Low Demand | Consider reducing preparation |
 
 **Automation:**
 - Models initialize on server startup
@@ -139,7 +139,7 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology | Version |
 |-------|-----------|---------|
@@ -158,7 +158,7 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 
 ---
 
-## 🗄️ Database Design
+##  Database Design
 
 ### Entity Relationship
 
@@ -199,7 +199,7 @@ USER ──┬── places ──→ ORDER ──── contains ──→ PROD
 
 ---
 
-## 📡 API Documentation
+##  API Documentation
 
 ### Authentication
 | Method | Endpoint | Description |
@@ -244,7 +244,7 @@ USER ──┬── places ──→ ORDER ──── contains ──→ PROD
 
 ---
 
-## 🔒 Security & Validation
+##  Security & Validation
 
 ### Backend Validation
 - **Registration**: Name (1-50 chars), email regex, password (6-128 chars)
@@ -268,7 +268,7 @@ USER ──┬── places ──→ ORDER ──── contains ──→ PROD
 
 ---
 
-## 🧪 Testing Strategy
+##  Testing Strategy
 
 ### Property-Based Testing (32 Correctness Properties)
 
@@ -299,7 +299,7 @@ npx vitest run
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js (v18+)
@@ -361,7 +361,7 @@ node seed.js
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 ├── src/                          # React Frontend
@@ -414,7 +414,7 @@ node seed.js
 
 ---
 
-## 🔐 Environment Variables
+##  Environment Variables
 
 | Variable | Location | Description |
 |----------|----------|-------------|
@@ -423,7 +423,7 @@ node seed.js
 
 ---
 
-## 🏭 Production Considerations
+##  Production Considerations
 
 ### What Makes This Production-Grade
 
@@ -454,7 +454,7 @@ node seed.js
 
 ---
 
-## 👥 Authors
+##  Authors
 
 Built as an **Advanced Database Systems** project demonstrating:
 - Full-stack web development with modern frameworks
@@ -465,6 +465,6 @@ Built as an **Advanced Database Systems** project demonstrating:
 
 ---
 
-## 📄 License
+##  License
 
 This project is for educational purposes as part of an Advanced Database Systems course.
