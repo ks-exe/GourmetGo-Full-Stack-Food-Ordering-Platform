@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GourmetGo Machine Learning Microservice</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Gourmet<span>Go</span> ML Backend</h1>
+      <p>A smart machine learning service facilitating restaurant recommendation and demand forecasting.</p>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        <span>Machine Learning Engine Active</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="card">
+        <h2>Smart Food Recommendation System</h2>
+        <p>This module uses **Content-Based Filtering** with `CountVectorizer` and `cosine_similarity` to calculate resemblance scores of food items using their Name, Category, and Description. Recommendations are dynamically boosted by orders count (popularity) loaded from the database.</p>
+        
+        <div class="endpoint-list">
+          <div class="endpoint-item">
+            <div class="endpoint-header">
+              <span class="method get">GET</span>
+              <span class="path">/api/ml/recommendations?query=&lt;food_name&gt;</span>
+            </div>
+            <div class="desc">Retrieves top 5 similar items to the requested food item, sorted by a weighted content similarity + popularity score.</div>
+            <div class="code-block">
+// Sample Response
+[
+  { "id": 3, "name": "Zinger Stack", "category": "Fast Food", "price": 950, "image": "...", "description": "..." },
+  { "id": 1, "name": "Classic Cheeseburger", "category": "Fast Food", "price": 850, "image": "...", "description": "..." }
+]
+            </div>
+          </div>
+
+          <div class="endpoint-item">
+            <div class="endpoint-header">
+              <span class="method get">GET</span>
+              <span class="path">/api/ml/trending</span>
+            </div>
+            <div class="desc">Retrieves top 6 most ordered items (trending foods) in descending order of orders from the MongoDB database.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Best Selling Food Prediction</h2>
+        <p>This module uses a **RandomForestRegressor** model trained on a 120-day historical sales dataset. It evaluates the impact of weather conditions, weekends, occasions, and previous sales to forecast sales demand, categorize demand levels, and generate stock alerts.</p>
+        
+        <div class="endpoint-list">
+          <div class="endpoint-item">
+            <div class="endpoint-header">
+              <span class="method post">POST</span>
+              <span class="path">/api/ml/predict-sales</span>
+            </div>
+            <div class="desc">Returns a detailed demand forecast for all dishes in the database.</div>
+            <div class="code-block">
+// Request Payload
+{
+  "weather": "Hot",
+  "temperature": 35,
+  "weekend": "Yes",
+  "occasion": "Eid"
+}
+
+// Sample Response
+{
+  "weather": "Hot",
+  "temperature": 35,
+  "weekend": "Yes",
+  "occasion": "Eid",
+  "predictions": [
+    {
+      "id": 21,
+      "name": "Iced Caramel Macchiato",
+      "category": "Drinks",
+      "expected_sales": 48,
+      "demand_level": "High Demand",
+      "stock_recommendation": "Increase stock by 50% (High Demand alert)",
+      "alert": true
+    }
+  ]
+}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>GourmetGo Research Lab &copy; 2026. Made with Python &amp; Scikit-Learn.</p>
+    </footer>
+  </div>
+</body>
+</html>

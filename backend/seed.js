@@ -1,0 +1,592 @@
+const mongoose = require('mongoose');
+require('dotenv').config();
+const Product = require('./models/Product');
+
+const products = [
+  // --- Fast Food (1-10) ---
+  {
+    id: 1,
+    name: "Classic Cheeseburger",
+    price: 850,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=800",
+    description: "Juicy beef patty with melted cheddar, lettuce, tomato, and our secret sauce."
+  },
+  {
+    id: 2,
+    name: "Crispy Chicken Burger",
+    price: 750,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=800",
+    description: "Hand-breaded chicken breast, pickles, and spicy mayo on a brioche bun."
+  },
+  {
+    id: 3,
+    name: "Zinger Stack",
+    price: 950,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1610614819513-58e34989848b?auto=format&fit=crop&q=80&w=800",
+    description: "Double crispy chicken fillets with cheese and signature sauce."
+  },
+  {
+    id: 4,
+    name: "Chicken Club Sandwich",
+    price: 650,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=800",
+    description: "Layered bread with chicken, egg, lettuce, and mayonnaise."
+  },
+  {
+    id: 5,
+    name: "Loaded Nachos",
+    price: 550,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&q=80&w=800",
+    description: "Tortilla chips topped with cheese, jalapenos, salsa, and sour cream."
+  },
+  {
+    id: 6,
+    name: "French Fries Large",
+    price: 350,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=800",
+    description: "Perfectly seasoned, crispy golden fries."
+  },
+  {
+    id: 7,
+    name: "Chicken Wings (10pcs)",
+    price: 890,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&q=80&w=800",
+    description: "Spicy buffalo wings served with ranch dip."
+  },
+  {
+    id: 8,
+    name: "Jalapeno Poppers",
+    price: 490,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?auto=format&fit=crop&q=80&w=800",
+    description: "Fried jalapenos stuffed with creamy cheese."
+  },
+  {
+    id: 9,
+    name: "Chicken Nuggets (12pcs)",
+    price: 650,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&q=80&w=800",
+    description: "Bite-sized crispy chicken pieces."
+  },
+  {
+    id: 10,
+    name: "BBQ Pizza Medium",
+    price: 1250,
+    category: "Fast Food",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=800",
+    description: "Diced BBQ chicken, onions, and lots of mozzarella cheese."
+  },
+
+  // --- BBQ (11-20) ---
+  {
+    id: 11,
+    name: "BBQ Ribs Stack",
+    price: 3500,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    description: "Slow-cooked baby back ribs glazed with our signature hickory BBQ sauce."
+  },
+  {
+    id: 12,
+    name: "Smoked Brisket Platter",
+    price: 2800,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1529193591184-b1d58b34ecdf?auto=format&fit=crop&q=80&w=800",
+    description: "12-hour smoked beef brisket served with cornbread and slaw."
+  },
+  {
+    id: 13,
+    name: "Grilled Salmon",
+    price: 3200,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1485921325833-c519f76c4927?auto=format&fit=crop&q=80&w=800",
+    description: "Fresh Atlantic salmon grilled over cedar wood with lemon butter."
+  },
+  {
+    id: 14,
+    name: "Chicken Tikka Platter",
+    price: 1400,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800",
+    description: "Traditionally marinated spicy chicken pieces grilled on charcoal."
+  },
+  {
+    id: 15,
+    name: "Beef Seekh Kabab (4pcs)",
+    price: 1200,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1628294895950-9805252327bc?auto=format&fit=crop&q=80&w=800",
+    description: "Minced beef blended with spices and grilled on skewers."
+  },
+  {
+    id: 16,
+    name: "Mutton Chops",
+    price: 2400,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1603048297172-c92544798d5e?auto=format&fit=crop&q=80&w=800",
+    description: "Succulent mutton chops marinated in special BBQ herbs."
+  },
+  {
+    id: 17,
+    name: "Malai Boti Platter",
+    price: 1600,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&q=80&w=800",
+    description: "Creamy and mild chicken chunks grilled to perfection."
+  },
+  {
+    id: 18,
+    name: "Grilled Prawns",
+    price: 2900,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&q=80&w=800",
+    description: "Jumbo prawns marinated in garlic butter and charcoal grilled."
+  },
+  {
+    id: 19,
+    name: "Afghani Lamb Tikka",
+    price: 2600,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&q=80&w=800",
+    description: "Authentic tender lamb pieces with minimal spices, focusing on natural meat flavor."
+  },
+  {
+    id: 20,
+    name: "Mixed BBQ Platter",
+    price: 4500,
+    category: "BBQ",
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    description: "A grand selection of Tikka, Kabab, Malai Boti, and Chops."
+  },
+
+  // --- Drinks (21-30) ---
+  {
+    id: 21,
+    name: "Iced Caramel Macchiato",
+    price: 850,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1541167760496-162955ed8a9f?auto=format&fit=crop&q=80&w=800",
+    description: "Rich espresso combined with milk and sweet caramel syrup."
+  },
+  {
+    id: 22,
+    name: "Fresh Strawberry Lemonade",
+    price: 650,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=800",
+    description: "Hand-squeezed lemons with fresh strawberry puree and mint."
+  },
+  {
+    id: 23,
+    name: "Old Fashioned Milkshake",
+    price: 750,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=800",
+    description: "Creamy vanilla bean ice cream blended with whole milk."
+  },
+  {
+    id: 24,
+    name: "Mango Lassi",
+    price: 450,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&q=80&w=800",
+    description: "Refreshing yogurt-based drink with fresh mango pulp."
+  },
+  {
+    id: 25,
+    name: "Classic Mint Margarita",
+    price: 550,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1513410275985-00b77732df37?auto=format&fit=crop&q=80&w=800",
+    description: "Ice blended with fresh mint, lime, and soda."
+  },
+  {
+    id: 26,
+    name: "Cold Coffee with Ice Cream",
+    price: 890,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1541167760496-162955ed8a9f?auto=format&fit=crop&q=80&w=800",
+    description: "Strong cold brew topped with a scoop of vanilla ice cream."
+  },
+  {
+    id: 27,
+    name: "Peach Iced Tea",
+    price: 490,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&q=80&w=800",
+    description: "Chilled black tea infused with natural peach flavor."
+  },
+  {
+    id: 28,
+    name: "Fresh Orange Juice",
+    price: 600,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=800",
+    description: "100% freshly squeezed seasonal oranges."
+  },
+  {
+    id: 29,
+    name: "Pina Colada",
+    price: 950,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1545001214-3c6cdbb9c3a3?auto=format&fit=crop&q=80&w=800",
+    description: "Creamy blend of pineapple juice and coconut cream."
+  },
+  {
+    id: 30,
+    name: "Hot Chocolate with Marshmallows",
+    price: 790,
+    category: "Drinks",
+    image: "https://images.unsplash.com/photo-1544787210-2211d7c309c7?auto=format&fit=crop&q=80&w=800",
+    description: "Rich dark chocolate with frothy milk and mini marshmallows."
+  },
+
+  // --- Special Dishes (31-40) ---
+  {
+    id: 31,
+    name: "Royal Mutton Karahi",
+    price: 3800,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1542362567-b051c63b9a56?auto=format&fit=crop&q=80&w=800",
+    description: "Premium mutton cooked with fresh tomatoes, ginger, and green chilies in a wok."
+  },
+  {
+    id: 32,
+    name: "Special Chicken Biryani",
+    price: 1100,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=800",
+    description: "Aromatic basmati rice layered with spicy chicken and special herbs."
+  },
+  {
+    id: 33,
+    name: "Cheese Stuffed Kabab",
+    price: 1800,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1529692236671-f1f6cf958d8d?auto=format&fit=crop&q=80&w=800",
+    description: "Beef kababs stuffed with melted mozzarella cheese."
+  },
+  {
+    id: 34,
+    name: "Tandoori Whole Chicken",
+    price: 2200,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800",
+    description: "Whole chicken marinated in yogurt and spices, roasted in a clay oven."
+  },
+  {
+    id: 35,
+    name: "Garlic Butter Lobster",
+    price: 8500,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&q=80&w=800",
+    description: "Fresh lobster tails sauteed in rich garlic herb butter."
+  },
+  {
+    id: 36,
+    name: "White Chicken Handi",
+    price: 1900,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1589187151003-0dd3aa1ad944?auto=format&fit=crop&q=80&w=800",
+    description: "Creamy and silky chicken gravy cooked in a traditional clay pot."
+  },
+  {
+    id: 37,
+    name: "Lamb Shank (Nalli Nihari)",
+    price: 2900,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    description: "Slow-cooked lamb shank in a rich, spicy bone marrow gravy."
+  },
+  {
+    id: 38,
+    name: "Paneer Reshmi Handi",
+    price: 1500,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&q=80&w=800",
+    description: "Cottage cheese cubes in a rich tomato and cream based gravy."
+  },
+  {
+    id: 39,
+    name: "Gourmet Seafood Platter",
+    price: 9500,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&q=80&w=800",
+    description: "Selection of lobster, prawns, grilled fish, and calamari."
+  },
+  {
+    id: 40,
+    name: "Chef's Signature Steak",
+    price: 4500,
+    category: "Special Dishes",
+    image: "https://images.unsplash.com/photo-1546241072-48010ad28c2c?auto=format&fit=crop&q=80&w=800",
+    description: "Prime cut beef steak served with asparagus and pepper sauce."
+  },
+
+  // --- Desi (41-50) ---
+  {
+    id: 41,
+    name: "Desi Ghee Daal Makhni",
+    price: 850,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80&w=800",
+    description: "Lentils slow-cooked overnight with spices and topped with pure desi ghee."
+  },
+  {
+    id: 42,
+    name: "Sarson Ka Saag & Makki Roti",
+    price: 1200,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1547928576-965be7f5f6a1?auto=format&fit=crop&q=80&w=800",
+    description: "Traditional mustard greens served with two maize flour flatbreads."
+  },
+  {
+    id: 43,
+    name: "Lahori Chana Masala",
+    price: 650,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80&w=800",
+    description: "Authentic Lahori style chickpeas cooked in a rich spicy gravy."
+  },
+  {
+    id: 44,
+    name: "Chicken Haleem",
+    price: 750,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&q=80&w=800",
+    description: "Slow-cooked stew of grains, lentils, and shredded chicken."
+  },
+  {
+    id: 45,
+    name: "Beef Paya",
+    price: 1500,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    description: "Tender beef trotters slow-cooked in a spicy bone marrow broth."
+  },
+  {
+    id: 46,
+    name: "Mutton Kunna",
+    price: 2600,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1589187151003-0dd3aa1ad944?auto=format&fit=crop&q=80&w=800",
+    description: "Chinioti style mutton cooked in a clay pot with rich spices."
+  },
+  {
+    id: 47,
+    name: "Chicken Jalfrezi",
+    price: 1300,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=800",
+    description: "Boneless chicken chunks with bell peppers and onions in a tangy sauce."
+  },
+  {
+    id: 48,
+    name: "Aloo Keema",
+    price: 950,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1601050638917-3d8437df475c?auto=format&fit=crop&q=80&w=800",
+    description: "Minced beef cooked with potatoes and traditional spices."
+  },
+  {
+    id: 49,
+    name: "Palak Paneer",
+    price: 1100,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1601050638917-3d8437df475c?auto=format&fit=crop&q=80&w=800",
+    description: "Fresh spinach puree with cubes of cottage cheese."
+  },
+  {
+    id: 50,
+    name: "Desi Chicken Karahi",
+    price: 2400,
+    category: "Desi",
+    image: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&q=80&w=800",
+    description: "Free-range chicken cooked with fresh tomatoes and ginger."
+  },
+
+  // --- Ice Cream (51-60) ---
+  {
+    id: 51,
+    name: "Belgium Chocolate Scoop",
+    price: 350,
+    category: "Ice Cream",
+    image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&q=80&w=800",
+    description: "Rich dark chocolate ice cream made with real Belgium cocoa."
+  },
+  {
+    id: 52,
+    name: "Kulfa Falooda",
+    price: 650,
+    category: "Ice Cream",
+    image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&q=80&w=800",
+    description: "Traditional kulfa ice cream with vermicelli, basil seeds, and rose syrup."
+  },
+  {
+    id: 53,
+    name: "Strawberry Cheesecake Ice Cream",
+    price: 450,
+    category: "Ice Cream",
+    image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&q=80&w=800",
+    description: "Creamy cheesecake base with swirls of fresh strawberry puree."
+  },
+  {
+    id: 54,
+    name: "Pista Badam Kulfa",
+    price: 400,
+    category: "Ice Cream",
+    image: "/assets/pista.jpg.webp",
+    description: "Traditional frozen dessert with pistachios and almonds."
+  },
+  {
+    id: 55,
+    name: "Mango Sorbet",
+    price: 300,
+    category: "Ice Cream",
+    image: "/assets/images.jpg",
+    description: "Refreshing dairy-free scoop made with fresh mangoes."
+  },
+  {
+    id: 56,
+    name: "Caramel Crunch Sundae",
+    price: 850,
+    category: "Ice Cream",
+    image: "https://images.unsplash.com/photo-1553177595-4de2bb0842b9?auto=format&fit=crop&q=80&w=800",
+    description: "Vanilla scoops topped with caramel sauce and roasted nuts."
+  },
+  {
+    id: 57,
+    name: "Vanilla Bean Classic",
+    price: 300,
+    category: "Ice Cream",
+    image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&q=80&w=800",
+    description: "Classic creamy vanilla made with Madagascar vanilla beans."
+  },
+  {
+    id: 58,
+    name: "Blueberry Frozen Yogurt",
+    price: 550,
+    category: "Ice Cream",
+    image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=800",
+    description: "Low-fat frozen yogurt with fresh blueberry swirls."
+  },
+  {
+    id: 59,
+    name: "Coffee Mocha Scoop",
+    price: 400,
+    category: "Ice Cream",
+    image: "https://images.unsplash.com/photo-1580915411954-282cb1b0d780?auto=format&fit=crop&q=80&w=800",
+    description: "Espresso infused ice cream with chocolate chunks."
+  },
+  {
+    id: 60,
+    name: "Tutti Frutti Special",
+    price: 450,
+    category: "Ice Cream",
+    image: "/assets/fruity.jpg",
+    description: "Colorful ice cream with dried fruits and nuts."
+  },
+
+  // --- Salad (61-70) ---
+  {
+    id: 61,
+    name: "Russian Salad",
+    price: 650,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800",
+    description: "Creamy blend of boiled potatoes, carrots, peas, and pineapple."
+  },
+  {
+    id: 62,
+    name: "Classic Caesar Salad",
+    price: 950,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&q=80&w=800",
+    description: "Crisp romaine lettuce with parmesan, croutons, and Caesar dressing."
+  },
+  {
+    id: 63,
+    name: "Grilled Chicken Salad",
+    price: 1100,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800",
+    description: "Fresh greens topped with juicy grilled chicken breast slices."
+  },
+  {
+    id: 64,
+    name: "Greek Feta Salad",
+    price: 850,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&q=80&w=800",
+    description: "Cucumbers, tomatoes, olives, and onions with feta cheese."
+  },
+  {
+    id: 65,
+    name: "Fresh Garden Salad",
+    price: 450,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800",
+    description: "Seasonal fresh vegetables with a light lemon dressing."
+  },
+  {
+    id: 66,
+    name: "Apple & Walnut Salad",
+    price: 750,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800",
+    description: "Mixed greens with sliced apples, walnuts, and honey mustard."
+  },
+  {
+    id: 67,
+    name: "Mexican Bean Salad",
+    price: 600,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800",
+    description: "Red kidney beans, corn, and bell peppers with a spicy lime dressing."
+  },
+  {
+    id: 68,
+    name: "Pasta Salad",
+    price: 700,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800",
+    description: "Fussili pasta with olives, cherry tomatoes, and herb vinaigrette."
+  },
+  {
+    id: 69,
+    name: "Quinoa Health Bowl",
+    price: 1200,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800",
+    description: "Nutritious quinoa with avocado, chickpeas, and kale."
+  },
+  {
+    id: 70,
+    name: "Fruit Chaat Special",
+    price: 550,
+    category: "Salad",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800",
+    description: "Traditional Pakistani fruit salad with a mix of seasonal fruits and chaat masala."
+  }
+];
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(async () => {
+    console.log('Connected to MongoDB for seeding');
+    await Product.deleteMany({}); // Clear existing data
+    await Product.insertMany(products);
+    console.log('Products Seeded Successfully!');
+    process.exit();
+  })
+  .catch(err => {
+    console.error('Error seeding data:', err);
+    process.exit(1);
+  });

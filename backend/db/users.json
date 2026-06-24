@@ -1,0 +1,13 @@
+[
+  {
+    "name": "New User",
+    "email": "newuser@example.com",
+    "password": "password123",
+    "isAdmin": false,
+    "_id": "mock_fs6f2tq7s",
+    "createdAt": "2026-06-16T17:53:18.396Z",
+    "updatedAt": "2026-06-16T17:53:19.231Z",
+    "cart": [],
+    "wishlist": []
+  }
+]
