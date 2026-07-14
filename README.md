@@ -57,21 +57,21 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         CLIENT LAYER                        │
+│                         CLIENT LAYER                            │
 │   React 19 SPA • Vite • State-based Routing • lucide-react      │
 ├─────────────────────────────────────────────────────────────────┤
-│                         ↕ HTTP/REST                              │
+│                         ↕ HTTP/REST                             │
 ├──────────────────────────┬──────────────────────────────────────┤
-│   EXPRESS API             │    FLASK ML SERVICE                  │
-│   • Auth Routes           │    • Recommendation Engine           │
-│   • Product CRUD          │    • Trending Algorithm              │
-│   • Order Management      │    • Sales Predictor (RandomForest)  │
+│   EXPRESS API             │    FLASK ML SERVICE                 │
+│   • Auth Routes           │    • Recommendation Engine          │
+│   • Product CRUD          │    • Trending Algorithm             │
+│   • Order Management      │    • Sales Predictor (RandomForest) │
 │   • User Sync (Cart/WL)   │    • Demand Classification          │
-│   • Reviews & Messages    │    • Stock Recommendations           │
-│   • Admin Middleware       │                                      │
+│   • Reviews & Messages    │    • Stock Recommendations          │
+│   • Admin Middleware      │                                     │
 ├──────────────────────────┴──────────────────────────────────────┤
-│                    MongoDB Atlas (Cloud)                          │
-│   Collections: users, products, orders, reviews, messages         │
+│                    MongoDB Atlas (Cloud)                        │
+│   Collections: users, products, orders, reviews, messages       │
 └────────────────────────────────────────────────────────────────┘
 ```
 
