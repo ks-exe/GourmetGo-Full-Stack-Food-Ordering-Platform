@@ -57,12 +57,12 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    CLIENT LAYER (Port 5173)                       │
+│                         CLIENT LAYER                        │
 │   React 19 SPA • Vite • State-based Routing • lucide-react      │
 ├─────────────────────────────────────────────────────────────────┤
 │                         ↕ HTTP/REST                              │
 ├──────────────────────────┬──────────────────────────────────────┤
-│   EXPRESS API (Port 5000) │    FLASK ML SERVICE (Port 5001)      │
+│   EXPRESS API             │    FLASK ML SERVICE                  │
 │   • Auth Routes           │    • Recommendation Engine           │
 │   • Product CRUD          │    • Trending Algorithm              │
 │   • Order Management      │    • Sales Predictor (RandomForest)  │
@@ -71,13 +71,13 @@ A production-grade, ML-powered food ordering platform serving Pakistani cuisine.
 │   • Admin Middleware       │                                      │
 ├──────────────────────────┴──────────────────────────────────────┤
 │                    MongoDB Atlas (Cloud)                          │
-│   Collections: users, products, orders, reviews, messages        │
-└─────────────────────────────────────────────────────────────────┘
+│   Collections: users, products, orders, reviews, messages         │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 ### Communication Flow
-1. **Frontend ↔ Express API** — All CRUD operations via REST (port 5000)
-2. **Frontend ↔ ML Service** — Recommendations, trending, predictions (port 5001)
+1. **Frontend ↔ Express API** — All CRUD operations via REST 
+2. **Frontend ↔ ML Service** — Recommendations, trending, predictions 
 3. **ML Service ↔ MongoDB** — Direct PyMongo reads for model training
 4. **Express ↔ MongoDB** — Mongoose ODM for all data persistence
 
